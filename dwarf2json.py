@@ -42,7 +42,8 @@ with open("dwarfdump.out") as f:
                     jsonMap[".debug_info"][addr] = { "name" : label, "children" : {}}
                     __line = f.readline().strip()
                     while __line != "":
-                        m = re.match("([A-z]+).*\((.*)\)", __line)
+                        m = re.match("(\S+)\t\((.*)\)", __line)
+                        assert m is not None, __line
                         jsonMap[".debug_info"][addr]["children"][m[1]] = m[2]
                         __line = f.readline().strip()
                     _line = f.readline().strip()
